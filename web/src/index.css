@@ -1975,6 +1975,52 @@ select {
 }
 
 /* Библиотека вопросов */
+.library-header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 1rem;
+}
+
+.library-title-section h3 {
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.library-subtitle {
+  margin: 0.25rem 0 0 0;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.library-humor-section {
+  display: flex;
+  align-items: center;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.library-humor-section:hover {
+  opacity: 1;
+}
+
+.fabric-image {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 2px solid var(--border-color);
+  transition: all 0.3s ease;
+  cursor: help;
+}
+
+.fabric-image:hover {
+  transform: scale(1.1);
+  border-color: var(--primary-color);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+}
+
 .library-filters {
   margin-bottom: 2rem;
   padding: 1.5rem;
@@ -2159,8 +2205,36 @@ select {
   margin-bottom: 0.5rem;
 }
 
+.flex {
+  display: flex;
+}
+
+.flex-gap {
+  display: flex;
+  gap: 1rem;
+}
+
 /* Адаптивность для библиотеки */
 @media (max-width: 768px) {
+  .library-header-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.75rem;
+  }
+  
+  .library-title-section {
+    order: 2;
+  }
+  
+  .library-humor-section {
+    order: 1;
+  }
+  
+  .fabric-image {
+    width: 40px;
+    height: 40px;
+  }
+  
   .filter-row {
     grid-template-columns: 1fr;
     gap: 0.75rem;

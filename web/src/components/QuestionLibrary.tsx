@@ -152,7 +152,20 @@ const QuestionLibrary: React.FC<QuestionLibraryProps> = ({ onSelectQuestion, onC
     <div className="modal-overlay">
       <div className="modal-content large">
         <div className="modal-header">
-          <h3>📚 Библиотека вопросов для интервью</h3>
+          <div className="library-header-content">
+            <div className="library-title-section">
+              <h3>📚 Библиотека вопросов для интервью</h3>
+              <p className="library-subtitle">Готовые вопросы для техических интервью</p>
+            </div>
+            <div className="library-humor-section">
+              <img 
+                src="/fabric_details.jpg" 
+                alt="Fabric Details" 
+                className="fabric-image"
+                title="Потому что качественные вопросы - это как качественная ткань 😄"
+              />
+            </div>
+          </div>
           <button className="modal-close" onClick={onClose}>×</button>
         </div>
 
