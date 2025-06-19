@@ -10,6 +10,7 @@ const JobList: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [showHypnotoad, setShowHypnotoad] = useState(false);
+  const [hypnotoadSize, setHypnotoadSize] = useState(100); // Начальный размер в пикселях
   const [lastActivity, setLastActivity] = useState(Date.now());
 
   useEffect(() => {
@@ -21,6 +22,7 @@ const JobList: React.FC = () => {
     const handleActivity = () => {
       setLastActivity(Date.now());
       setShowHypnotoad(false);
+      setHypnotoadSize(100); // Сброс размера
     };
 
     const checkInactivity = () => {
@@ -45,6 +47,22 @@ const JobList: React.FC = () => {
       clearInterval(interval);
     };
   }, [lastActivity]);
+
+  // Увеличение размера гипножабы
+  useEffect(() => {
+    if (!showHypnotoad) return;
+
+    const growInterval = setInterval(() => {
+      setHypnotoadSize(prevSize => {
+        const newSize = prevSize + 20;
+        // Ограничиваем максимальный размер размером экрана
+        const maxSize = Math.min(window.innerWidth, window.innerHeight);
+        return newSize > maxSize ? maxSize : newSize;
+      });
+    }, 500); // Увеличиваем каждые 0.5 секунд
+
+    return () => clearInterval(growInterval);
+  }, [showHypnotoad]);
 
   const fetchJobs = async () => {
     try {
@@ -193,21 +211,83 @@ const JobList: React.FC = () => {
       
       {/* Гипножаба из Futurama */}
       {showHypnotoad && (
-        <div className="hypnotoad-container">
-          <div className="hypnotoad">
-            <div className="hypnotoad-body">
-              <div className="hypnotoad-eyes">
-                <div className="hypnotoad-eye left">
-                  <div className="hypnotoad-pupil"></div>
-                </div>
-                <div className="hypnotoad-eye right">
-                  <div className="hypnotoad-pupil"></div>
-                </div>
-              </div>
-              <div className="hypnotoad-mouth"></div>
+        <div 
+          className="hypnotoad-video-container"
+          style={{
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: `${hypnotoadSize}px`,
+            height: `${hypnotoadSize}px`,
+            zIndex: 9999,
+            borderRadius: '50%',
+            overflow: 'hidden',
+            boxShadow: '0 0 50px rgba(255, 255, 0, 0.8)',
+            transition: 'all 0.5s ease-in-out',
+            background: 'radial-gradient(circle, rgba(255, 255, 0, 0.2) 0%, rgba(255, 0, 255, 0.1) 100%)'
+          }}
+          onClick={() => {
+            setShowHypnotoad(false);
+            setHypnotoadSize(100);
+          }}
+        >
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover'
+            }}
+            onError={(e) => {
+              console.log('Video error:', e);
+              // Если видео не загружается, показываем альтернативную анимацию
+              const target = e.target as HTMLVideoElement;
+              target.style.display = 'none';
+              const container = target.parentElement;
+              if (container) {
+                container.innerHTML = `
+                  <div style="
+                    width: 100%; 
+                    height: 100%; 
+                    display: flex; 
+                    align-items: center; 
+                    justify-content: center;
+                    font-size: ${hypnotoadSize / 6}px;
+                    color: #fff;
+                    text-shadow: 0 0 10px rgba(255, 255, 0, 0.8);
+                    animation: pulse 1s ease-in-out infinite alternate;
+                  ">
+                    🐸
+                    <style>
+                      @keyframes pulse {
+                        from { transform: scale(1); }
+                        to { transform: scale(1.2); }
+                      }
+                    </style>
+                  </div>
+                `;
+              }
+            }}
+          >
+            <source src="/gipno.webm" type="video/webm" />
+            <div style={{
+              width: '100%', 
+              height: '100%', 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'center',
+              fontSize: `${hypnotoadSize / 6}px`,
+              color: '#fff',
+              textShadow: '0 0 10px rgba(255, 255, 0, 0.8)'
+            }}>
+              🐸
             </div>
-            <div className="hypnotoad-glow"></div>
-          </div>
+          </video>
         </div>
       )}
     </div>
