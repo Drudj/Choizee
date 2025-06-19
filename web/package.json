@@ -10,10 +10,7 @@
     "build": "vite build",
     "preview": "vite preview"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "keywords": ["hr", "recruitment", "candidate-evaluation", "interview-tool"],
   "dependencies": {
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <!-- Градиентные определения -->
+  <defs>
+    <radialGradient id="targetBig" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="40%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </radialGradient>
+    <radialGradient id="centerBig" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+      <stop offset="60%" style="stop-color:#f59e0b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f97316;stop-opacity:1" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Внешний круг (фон) -->
+  <circle cx="96" cy="96" r="90" fill="url(#targetBig)" stroke="#4f46e5" stroke-width="4"/>
+  
+  <!-- Кольца мишени -->
+  <circle cx="96" cy="96" r="72" fill="none" stroke="rgba(255,255,255,0.95)" stroke-width="6"/>
+  <circle cx="96" cy="96" r="54" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="5"/>
+  <circle cx="96" cy="96" r="36" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="4"/>
+  <circle cx="96" cy="96" r="18" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="3"/>
+  
+  <!-- Центральная точка -->
+  <circle cx="96" cy="96" r="12" fill="url(#centerBig)" stroke="rgba(255,255,255,0.9)" stroke-width="2"/>
+  
+  <!-- Блик для объема -->
+  <ellipse cx="78" cy="78" rx="12" ry="18" fill="rgba(255,255,255,0.3)" opacity="0.7" transform="rotate(-30 78 78)"/>
+  
+  <!-- Дополнительный внутренний блик -->
+  <circle cx="88" cy="88" r="4" fill="rgba(255,255,255,0.6)" opacity="0.8"/>
+</svg> 
