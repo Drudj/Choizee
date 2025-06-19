@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Job, Question } from '../types';
 import { api } from '../services/api';
+import QuestionLibrary from './QuestionLibrary';
 
 const QuestionList: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -206,6 +207,7 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ job, question, onClose }) =
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showLibrary, setShowLibrary] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -238,6 +240,14 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ job, question, onClose }) =
       ...formData,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handleQuestionSelect = (selectedQuestion: string) => {
+    setFormData({
+      ...formData,
+      text: selectedQuestion,
+    });
+    setShowLibrary(false);
   };
 
   return (
@@ -284,9 +294,18 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ job, question, onClose }) =
           </div>
 
           <div className="form-group">
-            <label htmlFor="text" className="form-label">
-              Текст вопроса *
-            </label>
+            <div className="flex flex-between mb-2">
+              <label htmlFor="text" className="form-label">
+                Текст вопроса *
+              </label>
+              <button
+                type="button"
+                className="btn btn-outline btn-sm"
+                onClick={() => setShowLibrary(true)}
+              >
+                📚 Выбрать из библиотеки
+              </button>
+            </div>
             <textarea
               id="text"
               name="text"
@@ -294,7 +313,7 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ job, question, onClose }) =
               onChange={handleChange}
               className="form-textarea"
               required
-              placeholder="Введите вопрос для интервью..."
+              placeholder="Введите вопрос для интервью или выберите из библиотеки..."
               rows={4}
             />
           </div>
@@ -318,6 +337,14 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ job, question, onClose }) =
           </div>
         </form>
       </div>
+
+      {/* Библиотека вопросов */}
+      {showLibrary && (
+        <QuestionLibrary
+          onSelectQuestion={handleQuestionSelect}
+          onClose={() => setShowLibrary(false)}
+        />
+      )}
     </div>
   );
 };

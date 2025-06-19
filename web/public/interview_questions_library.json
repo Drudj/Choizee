@@ -1,0 +1,427 @@
+{
+  "categories": [
+    {
+      "id": "go-dev",
+      "name": "Go Developer",
+      "description": "Вопросы для разработчиков на Go",
+      "roles": [
+        {
+          "id": "go-junior",
+          "name": "Junior Go Developer",
+          "level": "Junior",
+          "questions": [
+            "Расскажите о системе типов в Go. В чем разница между статической и динамической типизацией?",
+            "Что такое goroutines и как они работают? Приведите пример использования.",
+            "Объясните концепт каналов (channels) в Go. Как они помогают в конкурентном программировании?",
+            "В чем разница между := и = в Go? Когда использовать каждую из них?",
+            "Что такое defer в Go и зачем он нужен? Приведите примеры использования.",
+            "Объясните разницу между массивами и слайсами в Go.",
+            "Как работают maps в Go? Какие особенности нужно учитывать при их использовании?",
+            "Что такое структуры в Go? Как определить и использовать структуру?",
+            "Объясните понятие интерфейсов в Go. Как они реализуются?",
+            "Что такое указатели в Go и когда их следует использовать?"
+          ]
+        },
+        {
+          "id": "go-middle",
+          "name": "Middle Go Developer", 
+          "level": "Middle",
+          "questions": [
+            "Объясните работу garbage collector в Go. Как оптимизировать программу для минимизации GC паузы?",
+            "Что такое reflection в Go? Когда его использовать и каковы его ограничения?",
+            "Как работает планировщик goroutines в Go runtime?",
+            "Объясните контекст (context) в Go. Зачем он нужен и как правильно использовать?",
+            "Что такое race conditions? Как их избежать в Go?",
+            "Как бы вы структурировали большое Go приложение? Расскажите о популярных архитектурных паттернах.",
+            "Объясните dependency injection в Go. Как его можно реализовать?",
+            "Что такое middleware в веб-приложениях на Go? Как его реализовать?",
+            "Как реализовать graceful shutdown в Go приложении?",
+            "Объясните паттерн Worker Pool в Go. Когда его использовать?"
+          ]
+        },
+        {
+          "id": "go-senior",
+          "name": "Senior Go Developer",
+          "level": "Senior",
+          "questions": [
+            "Как работает memory model в Go? Что такое happens-before отношения?",
+            "Объясните внутреннее устройство каналов в Go. Как они реализованы?",
+            "Как работает сборщик мусора в Go 1.19+? Какие оптимизации были внесены?",
+            "Что такое escape analysis в Go? Как он влияет на производительность?",
+            "Объясните работу с cgo. Когда его использовать и какие есть альтернативы?",
+            "Как бы вы структурировали code review процесс в команде Go разработчиков?",
+            "Какие метрики производительности Go приложений наиболее важны для мониторинга?",
+            "Как бы вы внедряли Go в команде, которая раньше использовала другие языки?",
+            "Расскажите о лучших практиках для написания поддерживаемого Go кода.",
+            "Как организовать техническое интервью для Go разработчика?"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "python-dev",
+      "name": "Python Developer",
+      "description": "Вопросы для разработчиков на Python",
+      "roles": [
+        {
+          "id": "python-junior",
+          "name": "Junior Python Developer",
+          "level": "Junior",
+          "questions": [
+            "Объясните разницу между списками, кортежами и множествами в Python.",
+            "Что такое list comprehensions? Приведите примеры использования.",
+            "Как работает управление памятью в Python? Что такое garbage collection?",
+            "Объясните разницу между методами класса, статическими методами и методами экземпляра.",
+            "Что такое декораторы в Python? Как создать простой декоратор?",
+            "Объясните принципы ООП в Python. Как реализованы наследование и полиморфизм?",
+            "Что такое dunder методы (magic methods) в Python? Приведите примеры.",
+            "Как работает множественное наследование в Python? Что такое MRO?",
+            "Объясните разницу между публичными, защищенными и приватными атрибутами.",
+            "Что такое property в Python? Как его использовать?"
+          ]
+        },
+        {
+          "id": "python-middle", 
+          "name": "Middle Python Developer",
+          "level": "Middle",
+          "questions": [
+            "Объясните GIL в Python. Как он влияет на многопоточность?",
+            "Что такое метаклассы в Python? Когда их использовать?",
+            "Как работают дескрипторы в Python? Приведите пример использования.",
+            "Объясните async/await в Python. Как работает асинхронное программирование?",
+            "Что такое context managers? Как создать собственный context manager?",
+            "Сравните Django и Flask. Когда использовать каждый из них?",
+            "Как работает ORM в Django? Объясните N+1 проблему и способы ее решения.",
+            "Что такое middleware в Django? Как создать собственный middleware?",
+            "Объясните работу с SQLAlchemy. Как оптимизировать запросы к базе данных?",
+            "Как тестировать Python приложения? Расскажите о pytest и unittest."
+          ]
+        },
+        {
+          "id": "python-senior",
+          "name": "Senior Python Developer",
+          "level": "Senior",
+          "questions": [
+            "Как бы вы спроектировали масштабируемую архитектуру Python приложения?",
+            "Объясните принципы SOLID применительно к Python разработке.",
+            "Как реализовать dependency injection в Python?",
+            "Расскажите о паттернах проектирования, которые часто используются в Python.",
+            "Как организовать структуру большого Python проекта?",
+            "Как профилировать Python приложения? Какие инструменты использовать?",
+            "Объясните стратегии оптимизации производительности Python кода.",
+            "Когда стоит использовать Cython или другие расширения?",
+            "Как работать с большими объемами данных в Python?",
+            "Объясните работу памяти в Python и как избежать утечек памяти."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "frontend-dev",
+      "name": "Frontend Developer",
+      "description": "Вопросы для frontend разработчиков",
+      "roles": [
+        {
+          "id": "frontend-junior",
+          "name": "Junior Frontend Developer",
+          "level": "Junior",
+          "questions": [
+            "Объясните разницу между block, inline и inline-block элементами.",
+            "Что такое CSS Box Model? Как работают margin, padding и border?",
+            "Как работает CSS Grid и Flexbox? В каких случаях использовать каждый?",
+            "Что такое CSS specificity и как она рассчитывается?",
+            "Объясните принципы responsive design. Как использовать media queries?",
+            "Объясните разницу между var, let и const в JavaScript.",
+            "Что такое hoisting в JavaScript? Приведите примеры.",
+            "Как работают callback функции? Что такое callback hell?",
+            "Объясните разницу между == и === в JavaScript.",
+            "Что такое event delegation и как его использовать?"
+          ]
+        },
+        {
+          "id": "frontend-middle",
+          "name": "Middle Frontend Developer",
+          "level": "Middle",
+          "questions": [
+            "Объясните жизненный цикл компонента в React. Какие хуки заменили lifecycle методы?",
+            "Что такое Virtual DOM? Как работает reconciliation в React?",
+            "Объясните useState, useEffect и другие встроенные хуки React.",
+            "Как работает state management в React приложениях? Сравните Redux, Context API и Zustand.",
+            "Что такое React.memo, useMemo и useCallback? Когда их использовать?",
+            "Объясните модульную систему в JavaScript (ES6 modules).",
+            "Что такое замыкания (closures) в JavaScript? Приведите практические примеры.",
+            "Как работает прототипное наследование в JavaScript?",
+            "Объясните деструктуризацию в JavaScript. Как ее использовать?",
+            "Что такое Web API? Расскажите о fetch, localStorage, sessionStorage."
+          ]
+        },
+        {
+          "id": "frontend-senior",
+          "name": "Senior Frontend Developer",
+          "level": "Senior",
+          "questions": [
+            "Как бы вы спроектировали архитектуру крупного frontend приложения?",
+            "Объясните принципы микрофронтендов. Когда их использовать?",
+            "Как организовать code splitting и lazy loading в React приложении?",
+            "Расскажите о паттернах управления состоянием в сложных приложениях.",
+            "Как обеспечить масштабируемость и поддерживаемость frontend кода?",
+            "Как оптимизировать производительность React приложений?",
+            "Объясните метрики производительности веб-приложений (FCP, LCP, CLS).",
+            "Как работает browser caching? Какие стратегии кэширования использовать?",
+            "Что такое Service Workers? Как реализовать offline functionality?",
+            "Как оптимизировать загрузку ресурсов (images, fonts, CSS, JS)?"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "devops",
+      "name": "DevOps Engineer",
+      "description": "Вопросы для DevOps инженеров",
+      "roles": [
+        {
+          "id": "devops-junior",
+          "name": "Junior DevOps Engineer",
+          "level": "Junior",
+          "questions": [
+            "Объясните основные команды Linux для работы с файлами и директориями.",
+            "Как работают права доступа в Linux? Объясните chmod и chown.",
+            "Что такое процессы в Linux? Как управлять процессами?",
+            "Как работать с systemd сервисами?",
+            "Объясните разницу между hard link и symbolic link.",
+            "Что такое контейнеризация? В чем преимущества Docker?",
+            "Объясните разницу между Docker image и Docker container.",
+            "Как написать эффективный Dockerfile?",
+            "Что такое Docker Compose и как его использовать?",
+            "Как работать с Docker volumes и networks?"
+          ]
+        },
+        {
+          "id": "devops-middle",
+          "name": "Middle DevOps Engineer",
+          "level": "Middle",
+          "questions": [
+            "Объясните архитектуру Kubernetes. Что такое control plane и worker nodes?",
+            "Как работают Pods, Services и Deployments в Kubernetes?",
+            "Что такое ConfigMaps и Secrets? Как управлять конфигурацией в K8s?",
+            "Объясните Ingress и Service Mesh в Kubernetes.",
+            "Как организовать мониторинг и логирование в Kubernetes кластере?",
+            "Сравните основные сервисы AWS, GCP и Azure.",
+            "Как работает AWS VPC? Объясните сетевую архитектуру в облаке.",
+            "Что такое Infrastructure as Code? Расскажите о Terraform.",
+            "Как организовать backup и disaster recovery в облаке?",
+            "Объясните принципы auto-scaling в облачных платформах."
+          ]
+        },
+        {
+          "id": "devops-senior",
+          "name": "Senior DevOps Engineer",
+          "level": "Senior",
+          "questions": [
+            "Как спроектировать отказоустойчивую инфраструктуру?",
+            "Объясните принципы microservices архитектуры с точки зрения DevOps.",
+            "Как организовать multi-cloud или hybrid cloud стратегию?",
+            "Расскажите о подходах к capacity planning и cost optimization.",
+            "Как внедрить GitOps в организации?",
+            "Как автоматизировать deployment процессы для сложных систем?",
+            "Объясните стратегии blue-green, canary и rolling deployments.",
+            "Как организовать эффективный incident response процесс?",
+            "Расскажите о подходах к performance tuning инфраструктуры.",
+            "Как внедрить chaos engineering в организации?"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "qa",
+      "name": "QA Engineer",
+      "description": "Вопросы для инженеров по качеству",
+      "roles": [
+        {
+          "id": "qa-junior",
+          "name": "Junior QA Engineer",
+          "level": "Junior",
+          "questions": [
+            "Объясните разницу между функциональным и нефункциональным тестированием.",
+            "Что такое test case и test scenario? Как их правильно писать?",
+            "Объясните принципы black-box и white-box тестирования.",
+            "Что такое boundary value analysis и equivalence partitioning?",
+            "Как организовать test data management?",
+            "Объясните пирамиду тестирования. Какие виды тестов и на каком уровне проводить?",
+            "Что такое regression testing? Как его автоматизировать?",
+            "Объясните разницу между smoke, sanity и regression testing.",
+            "Что такое exploratory testing? Когда его применять?",
+            "Как тестировать в Agile/Scrum методологии?"
+          ]
+        },
+        {
+          "id": "qa-middle",
+          "name": "Middle QA Engineer",
+          "level": "Middle",
+          "questions": [
+            "Когда стоит автоматизировать тесты, а когда оставить ручное тестирование?",
+            "Объясните принципы Page Object Model в автоматизации UI тестов.",
+            "Как работать с Selenium WebDriver? Расскажите о его архитектуре.",
+            "Что такое data-driven и keyword-driven testing?",
+            "Как интегрировать автотесты в CI/CD pipeline?",
+            "Как тестировать REST API? Какие аспекты важно проверять?",
+            "Объясните принципы contract testing. Что такое PACT?",
+            "Как тестировать GraphQL API?",
+            "Что такое mock и stub в контексте API тестирования?",
+            "Как организовать performance testing API?"
+          ]
+        },
+        {
+          "id": "qa-senior",
+          "name": "Senior QA Engineer",
+          "level": "Senior",
+          "questions": [
+            "Как разработать test strategy для сложного проекта?",
+            "Объясните подходы к risk-based testing.",
+            "Как организовать тестирование в микросервисной архитектуре?",
+            "Расскажите о shift-left testing подходе.",
+            "Как внедрить testing в DevOps процессы?",
+            "Какие метрики качества важно отслеживать в проекте?",
+            "Как организовать code review с точки зрения качества?",
+            "Объясните принципы continuous testing.",
+            "Как внедрить культуру качества в команде разработки?",
+            "Расскажите о подходах к test environment management."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ux-design",
+      "name": "UX Designer",
+      "description": "Вопросы для UX дизайнеров",
+      "roles": [
+        {
+          "id": "ux-junior",
+          "name": "Junior UX Designer",
+          "level": "Junior",
+          "questions": [
+            "Объясните разницу между UX и UI дизайном.",
+            "Что такое user persona и как ее создавать?",
+            "Объясните процесс Design Thinking. Какие этапы он включает?",
+            "Что такое user journey mapping? Как его проводить?",
+            "Объясните принципы accessibility в дизайне.",
+            "Какие методы user research вы знаете? Когда использовать каждый?",
+            "Как проводить интервью с пользователями? Какие вопросы задавать?",
+            "Что такое usability testing? Как его организовать?",
+            "Объясните разницу между качественными и количественными исследованиями.",
+            "Как анализировать и интерпретировать данные исследований?"
+          ]
+        },
+        {
+          "id": "ux-middle",
+          "name": "Middle UX Designer",
+          "level": "Middle",
+          "questions": [
+            "Как проектировать complex user flows? Какие принципы соблюдать?",
+            "Объясните принципы information architecture.",
+            "Как проводить card sorting и tree testing?",
+            "Что такое mental models пользователей? Как их учитывать в дизайне?",
+            "Как работать с edge cases в UX дизайне?",
+            "Как презентовать дизайн решения стейкхолдерам?",
+            "Объясните процесс design handoff разработчикам.",
+            "Как работать в Agile команде в роли UX дизайнера?",
+            "Что такое design critique? Как его проводить?",
+            "Как собирать и обрабатывать feedback по дизайну?"
+          ]
+        },
+        {
+          "id": "ux-senior",
+          "name": "Senior UX Designer",
+          "level": "Senior",
+          "questions": [
+            "Как разработать UX стратегию для продукта?",
+            "Объясните процесс создания UX roadmap.",
+            "Как внедрить user-centered design в организацию?",
+            "Расскажите о подходах к scaling UX в больших продуктах.",
+            "Как работать с technical debt в UX?",
+            "Как организовать UX research программу в компании?",
+            "Объясните принципы behavioral design.",
+            "Как использовать emerging technologies (AR/VR, AI) в UX дизайне?",
+            "Расскажите о подходах к inclusive design.",
+            "Как проводить competitive analysis и benchmark исследования?"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "management",
+      "name": "Management",
+      "description": "Вопросы для менеджеров и лидеров",
+      "roles": [
+        {
+          "id": "team-lead",
+          "name": "Team Lead",
+          "level": "Lead",
+          "questions": [
+            "Как вы организуете работу команды разработчиков? Какие практики используете?",
+            "Как проводить one-on-one встречи с членами команды?",
+            "Объясните подходы к delegation и task management.",
+            "Как разрешать конфликты в команде?",
+            "Как мотивировать team members и поддерживать их engagement?",
+            "Как принимать архитектурные решения в команде?",
+            "Объясните процесс code review и technical mentoring.",
+            "Как управлять technical debt?",
+            "Как внедрять новые технологии в команде?",
+            "Объясните подходы к knowledge sharing и documentation."
+          ]
+        },
+        {
+          "id": "product-manager",
+          "name": "Product Manager",
+          "level": "Manager",
+          "questions": [
+            "Как разработать product roadmap? Какие факторы учитывать?",
+            "Объясните процесс market research и competitive analysis.",
+            "Что такое product-market fit? Как его достичь?",
+            "Как работать с user feedback и feature requests?",
+            "Объясните принципы prioritization (MoSCoW, RICE, Kano model).",
+            "Какие product metrics важно отслеживать? Как их интерпретировать?",
+            "Как проводить A/B тестирование продуктовых гипотез?",
+            "Объясните принципы cohort analysis и retention analysis.",
+            "Что такое funnel analysis? Как его использовать для оптимизации?",
+            "Как работать с data-driven decision making?"
+          ]
+        },
+        {
+          "id": "product-director",
+          "name": "Product Director",
+          "level": "Director",
+          "questions": [
+            "Как разработать product strategy на уровне компании?",
+            "Объясните процесс market sizing и opportunity assessment.",
+            "Как работать с product portfolio management?",
+            "Расскажите о подходах к innovation management.",
+            "Как выстроить product operations в организации?",
+            "Как построить эффективную product organization?",
+            "Объясните подходы к hiring и развитию product managers.",
+            "Как создать product culture в компании?",
+            "Расскажите о принципах product leadership.",
+            "Как измерить success продуктовых инициатив?"
+          ]
+        },
+        {
+          "id": "system-admin",
+          "name": "System Administrator",
+          "level": "Administrator",
+          "questions": [
+            "Как администрировать Linux серверы? Какие задачи выполняете ежедневно?",
+            "Объясните принципы backup и disaster recovery.",
+            "Как настроить мониторинг системных ресурсов?",
+            "Что такое configuration management? Расскажите об Ansible, Puppet.",
+            "Как обеспечить безопасность серверной инфраструктуры?",
+            "Как настроить и администрировать корпоративную сеть?",
+            "Объясните принципы работы с firewalls и VPN.",
+            "Как диагностировать сетевые проблемы?",
+            "Что такое VLAN и как их настраивать?",
+            "Как работать с DNS и DHCP серверами?"
+          ]
+        }
+      ]
+    }
+  ]
+} 
