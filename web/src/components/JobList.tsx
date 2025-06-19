@@ -8,10 +8,43 @@ const JobList: React.FC = () => {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [showHypnotoad, setShowHypnotoad] = useState(false);
+  const [lastActivity, setLastActivity] = useState(Date.now());
 
   useEffect(() => {
     fetchJobs();
   }, []);
+
+  // Отслеживание активности пользователя для показа гипножабы
+  useEffect(() => {
+    const handleActivity = () => {
+      setLastActivity(Date.now());
+      setShowHypnotoad(false);
+    };
+
+    const checkInactivity = () => {
+      if (Date.now() - lastActivity > 5000) {
+        setShowHypnotoad(true);
+      }
+    };
+
+    // Слушаем события активности
+    const events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart', 'click'];
+    events.forEach(event => {
+      document.addEventListener(event, handleActivity, true);
+    });
+
+    // Проверяем каждую секунду
+    const interval = setInterval(checkInactivity, 1000);
+
+    return () => {
+      events.forEach(event => {
+        document.removeEventListener(event, handleActivity, true);
+      });
+      clearInterval(interval);
+    };
+  }, [lastActivity]);
 
   const fetchJobs = async () => {
     try {
@@ -46,9 +79,27 @@ const JobList: React.FC = () => {
     <div>
       <div className="page-header">
         <h2>🎯 Вакансии</h2>
-        <Link to="/jobs/new" className="btn btn-primary">
-          ➕ Создать вакансию
-        </Link>
+        <div className="flex flex-gap">
+          <div className="view-toggle">
+            <button
+              className={`view-toggle-btn ${viewMode === 'grid' ? 'active' : ''}`}
+              onClick={() => setViewMode('grid')}
+              title="Сетка"
+            >
+              ⊞
+            </button>
+            <button
+              className={`view-toggle-btn ${viewMode === 'list' ? 'active' : ''}`}
+              onClick={() => setViewMode('list')}
+              title="Список"
+            >
+              ☰
+            </button>
+          </div>
+          <Link to="/jobs/new" className="btn btn-primary">
+            ➕ Создать вакансию
+          </Link>
+        </div>
       </div>
 
       {error && (
@@ -73,9 +124,9 @@ const JobList: React.FC = () => {
           </div>
         </div>
       ) : (
-        <div className="grid grid-2">
+        <div className={viewMode === 'grid' ? 'grid grid-2' : 'job-list-view'}>
           {jobs.map((job) => (
-            <div key={job.id} className="card">
+            <div key={job.id} className={`card ${viewMode === 'list' ? 'job-card-horizontal' : ''}`}>
               <div className="card-header">
                 <h3 className="card-title">{job.title}</h3>
                 <div className="card-actions">
@@ -96,41 +147,67 @@ const JobList: React.FC = () => {
                 </div>
               </div>
               <div className="card-content">
-                <p className="mb-4">{job.description}</p>
-                <div className="mb-4">
-                  <strong>Требования:</strong>
-                  <p className="text-muted">{job.requirements}</p>
-                </div>
-                <div className="mb-4">
-                  <strong>Критерии оценки:</strong>
-                  <div className="flex flex-gap mt-2" style={{ flexWrap: 'wrap' }}>
-                    {job.criteria && JSON.parse(job.criteria).map((criterion: string, index: number) => (
-                      <span
-                        key={index}
-                        className="criterion-tag"
-                      >
-                        {criterion}
-                      </span>
-                    ))}
+                <div className={viewMode === 'list' ? 'job-content-horizontal' : ''}>
+                  <div className="job-main-info">
+                    <p className="mb-4">{job.description}</p>
+                    <div className="mb-4">
+                      <strong>Требования:</strong>
+                      <p className="text-muted">{job.requirements}</p>
+                    </div>
                   </div>
-                </div>
-                <div className="flex flex-gap mt-4" style={{ flexWrap: 'wrap' }}>
-                  <Link
-                    to={`/jobs/${job.id}/candidates`}
-                    className="btn btn-primary"
-                  >
-                    👥 Просмотреть кандидатов
-                  </Link>
-                  <Link
-                    to={`/jobs/${job.id}/questions`}
-                    className="btn btn-secondary"
-                  >
-                    📝 Управление вопросами
-                  </Link>
+                  <div className="job-meta-info">
+                    <div className="mb-4">
+                      <strong>Критерии оценки:</strong>
+                      <div className="flex flex-gap mt-2" style={{ flexWrap: 'wrap' }}>
+                        {job.criteria && JSON.parse(job.criteria).map((criterion: string, index: number) => (
+                          <span
+                            key={index}
+                            className="criterion-tag"
+                          >
+                            {criterion}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="flex flex-gap mt-4" style={{ flexWrap: 'wrap' }}>
+                      <Link
+                        to={`/jobs/${job.id}/candidates`}
+                        className="btn btn-primary"
+                      >
+                        👥 Просмотреть кандидатов
+                      </Link>
+                      <Link
+                        to={`/jobs/${job.id}/questions`}
+                        className="btn btn-secondary"
+                      >
+                        📝 Управление вопросами
+                      </Link>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           ))}
+        </div>
+      )}
+      
+      {/* Гипножаба из Futurama */}
+      {showHypnotoad && (
+        <div className="hypnotoad-container">
+          <div className="hypnotoad">
+            <div className="hypnotoad-body">
+              <div className="hypnotoad-eyes">
+                <div className="hypnotoad-eye left">
+                  <div className="hypnotoad-pupil"></div>
+                </div>
+                <div className="hypnotoad-eye right">
+                  <div className="hypnotoad-pupil"></div>
+                </div>
+              </div>
+              <div className="hypnotoad-mouth"></div>
+            </div>
+            <div className="hypnotoad-glow"></div>
+          </div>
         </div>
       )}
     </div>

@@ -348,21 +348,23 @@ const CandidateComparison: React.FC = () => {
           </div>
 
           {/* Лепестковая диаграмма */}
-          <div className="card mb-6">
+          <div className="card mb-6 radar-chart-container">
             <div className="card-content">
               <h3>🎯 Лепестковая диаграмма сравнения</h3>
               <p className="text-muted mb-4">
                 Радар-диаграмма в стиле FIFA/PES для наглядного сравнения кандидатов по всем критериям
               </p>
-              <RadarChart
-                criteria={criteria}
-                candidates={evaluatedCandidates.map((evaluation, index) => ({
-                  name: evaluation.candidateName,
-                  scores: evaluation.criteriaScores,
-                  color: getCandidateColor(index)
-                }))}
-                title="Сравнение кандидатов по критериям"
-              />
+              <div className="radar-chart-wrapper">
+                <RadarChart
+                  criteria={criteria}
+                  candidates={evaluatedCandidates.map((evaluation, index) => ({
+                    name: evaluation.candidateName,
+                    scores: evaluation.criteriaScores,
+                    color: getCandidateColor(index)
+                  }))}
+                  title="Сравнение кандидатов по критериям"
+                />
+              </div>
             </div>
           </div>
 

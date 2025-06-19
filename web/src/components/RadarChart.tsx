@@ -106,7 +106,7 @@ const RadarChart: React.FC<RadarChartProps> = ({ criteria, candidates, title }) 
   };
 
   return (
-    <div style={{ position: 'relative', height: '400px', width: '100%' }}>
+    <div style={{ position: 'relative', height: '500px', width: '100%' }}>
       {title && (
         <h4 style={{ textAlign: 'center', marginBottom: '1rem', color: '#374151' }}>
           {title}

@@ -8,7 +8,7 @@
  */
 
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom';
 import JobList from './components/JobList';
 import JobForm from './components/JobForm';
 import CandidateList from './components/CandidateList';
@@ -24,7 +24,9 @@ function App() {
       <Router>
         <div className="app">
         <header className="app-header">
-          <h1>🎯 Choizee</h1>
+          <Link to="/" className="app-logo-link">
+            <h1>🎯 Choizee</h1>
+          </Link>
           <p>Инструмент для оценки кандидатов</p>
         </header>
         <main className="app-main">
