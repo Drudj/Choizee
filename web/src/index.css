@@ -2005,20 +2005,53 @@ select {
   opacity: 1;
 }
 
+.fabric-image-container {
+  position: relative;
+  display: inline-block;
+}
+
+.fabric-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 999;
+  pointer-events: none;
+}
+
+.fabric-image:hover + .fabric-overlay {
+  opacity: 1;
+  visibility: visible;
+}
+
 .fabric-image {
-  width: 48px;
-  height: 48px;
+  width: 72px;
+  height: 72px;
   border-radius: 8px;
   object-fit: cover;
   border: 2px solid var(--border-color);
-  transition: all 0.3s ease;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: help;
+  position: relative;
+  z-index: 1;
 }
 
 .fabric-image:hover {
-  transform: scale(1.1);
+  width: 400px;
+  height: 400px;
   border-color: var(--primary-color);
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+  box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3);
+  border-radius: 16px;
+  z-index: 1000;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .library-filters {
@@ -2231,8 +2264,13 @@ select {
   }
   
   .fabric-image {
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
+  }
+  
+  .fabric-image:hover {
+    width: 300px;
+    height: 300px;
   }
   
   .filter-row {
