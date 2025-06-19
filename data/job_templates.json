@@ -1,0 +1,372 @@
+{
+  "templates": [
+    {
+      "id": "frontend-junior",
+      "title": "Frontend Developer (Junior)",
+      "category": "Development",
+      "level": "Junior",
+      "description": "Разработка пользовательских интерфейсов с использованием современных технологий. Создание отзывчивых и интуитивных веб-приложений.",
+      "requirements": "1-2 года опыта в frontend разработке, знание HTML5, CSS3, JavaScript ES6+, опыт работы с React или Vue.js, понимание принципов responsive design",
+      "criteria": [
+        "HTML/CSS Skills",
+        "JavaScript Fundamentals", 
+        "React/Vue.js Knowledge",
+        "Responsive Design",
+        "Code Quality",
+        "Problem Solving",
+        "Communication Skills",
+        "Learning Ability"
+      ],
+      "questions": [
+        {
+          "criterion": "HTML/CSS Skills",
+          "questions": [
+            "Объясните разницу между block, inline и inline-block элементами",
+            "Как работает CSS Grid и Flexbox? В каких случаях использовать каждый?",
+            "Что такое CSS specificity и как она работает?"
+          ]
+        },
+        {
+          "criterion": "JavaScript Fundamentals",
+          "questions": [
+            "Объясните разницу между let, const и var",
+            "Что такое hoisting в JavaScript?",
+            "Как работают arrow functions и чем отличаются от обычных функций?"
+          ]
+        },
+        {
+          "criterion": "React/Vue.js Knowledge",
+          "questions": [
+            "Объясните жизненный цикл компонента в React",
+            "Что такое state и props? В чем разница?",
+            "Как работают hooks в React? Приведите примеры"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "frontend-middle",
+      "title": "Frontend Developer (Middle)",
+      "category": "Development", 
+      "level": "Middle",
+      "description": "Разработка сложных пользовательских интерфейсов, оптимизация производительности, архитектурные решения для frontend приложений.",
+      "requirements": "3-5 лет опыта в frontend разработке, глубокие знания React/Vue.js/Angular, опыт работы с состоянием (Redux, MobX), знание TypeScript, опыт настройки сборки (Webpack, Vite)",
+      "criteria": [
+        "Advanced JavaScript/TypeScript",
+        "Framework Expertise",
+        "State Management",
+        "Performance Optimization",
+        "Testing",
+        "Build Tools & DevOps",
+        "Architecture Design",
+        "Code Review & Mentoring"
+      ],
+      "questions": [
+        {
+          "criterion": "Advanced JavaScript/TypeScript",
+          "questions": [
+            "Объясните как работает Event Loop в JavaScript",
+            "Что такое closures и как они работают?",
+            "В чем преимущества TypeScript? Расскажите о дженериках"
+          ]
+        },
+        {
+          "criterion": "State Management",
+          "questions": [
+            "Сравните Redux и Context API. Когда использовать каждый?",
+            "Объясните паттерн Flux и его реализацию в Redux",
+            "Как бы вы структурировали state в крупном приложении?"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "frontend-senior",
+      "title": "Frontend Developer (Senior)",
+      "category": "Development",
+      "level": "Senior", 
+      "description": "Ведение крупных frontend проектов, архитектурные решения, менторинг команды, техническое лидерство в области пользовательских интерфейсов.",
+      "requirements": "5+ лет опыта в frontend разработке, экспертные знания современных фреймворков, опыт проектирования архитектуры, лидерские навыки, опыт менторинга",
+      "criteria": [
+        "Technical Leadership",
+        "System Architecture",
+        "Performance & Scalability",
+        "Team Mentoring",
+        "Cross-functional Collaboration",
+        "Innovation & Best Practices",
+        "Business Understanding",
+        "Strategic Thinking"
+      ],
+      "questions": [
+        {
+          "criterion": "System Architecture", 
+          "questions": [
+            "Как бы вы спроектировали архитектуру микрофронтендов?",
+            "Расскажите о подходах к code splitting и lazy loading",
+            "Как обеспечить масштабируемость frontend приложения?"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "backend-junior",
+      "title": "Backend Developer (Junior)",
+      "category": "Development",
+      "level": "Junior",
+      "description": "Разработка серверной логики приложений, работа с базами данных, создание API endpoints.",
+      "requirements": "1-2 года опыта в backend разработке, знание одного из языков (Python, Java, Go, Node.js), понимание основ баз данных, опыт работы с REST API",
+      "criteria": [
+        "Programming Language Proficiency",
+        "Database Fundamentals",
+        "API Development",
+        "Testing Basics",
+        "Version Control",
+        "Problem Solving",
+        "Code Quality",
+        "Learning Ability"
+      ],
+      "questions": [
+        {
+          "criterion": "Programming Language Proficiency",
+          "questions": [
+            "Объясните основные принципы ООП на примере вашего языка",
+            "Что такое garbage collection и как он работает?",
+            "Расскажите о работе с исключениями (exceptions)"
+          ]
+        },
+        {
+          "criterion": "Database Fundamentals",
+          "questions": [
+            "Объясните разницу между SQL и NoSQL базами данных",
+            "Что такое индексы в базе данных и зачем они нужны?",
+            "Как работают транзакции в базах данных?"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "backend-middle", 
+      "title": "Backend Developer (Middle)",
+      "category": "Development",
+      "level": "Middle",
+      "description": "Разработка сложных серверных систем, оптимизация производительности, проектирование API, работа с микросервисами.",
+      "requirements": "3-5 лет опыта в backend разработке, глубокие знания выбранного стека, опыт работы с облачными платформами, понимание принципов distributed systems",
+      "criteria": [
+        "Advanced Programming",
+        "System Design",
+        "Performance Optimization",
+        "Microservices Architecture", 
+        "Cloud Platforms",
+        "Security Best Practices",
+        "Monitoring & Debugging",
+        "Documentation & Communication"
+      ],
+      "questions": [
+        {
+          "criterion": "System Design",
+          "questions": [
+            "Как бы вы спроектировали систему кэширования?",
+            "Объясните CAP theorem и его практическое применение",
+            "Как обеспечить консистентность данных в распределенной системе?"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fullstack-middle",
+      "title": "Full-Stack Developer (Middle)",
+      "category": "Development",
+      "level": "Middle", 
+      "description": "Комплексная разработка веб-приложений от пользовательского интерфейса до серверной логики и баз данных.",
+      "requirements": "3-5 лет опыта в fullstack разработке, знание современного frontend framework, backend языка, опыт работы с базами данных, понимание DevOps практик",
+      "criteria": [
+        "Frontend Development Skills",
+        "Backend Development Skills", 
+        "Database Architecture",
+        "API Design & Integration",
+        "DevOps & Deployment",
+        "System Integration",
+        "Problem Solving",
+        "Project Management"
+      ],
+      "questions": [
+        {
+          "criterion": "API Design & Integration", 
+          "questions": [
+            "Как бы вы спроектировали RESTful API для e-commerce приложения?",
+            "Объясните разницу между REST и GraphQL",
+            "Как обеспечить безопасность API endpoints?"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "devops-middle",
+      "title": "DevOps Engineer (Middle)",
+      "category": "Infrastructure",
+      "level": "Middle",
+      "description": "Автоматизация процессов разработки и развертывания, управление инфраструктурой, обеспечение надежности систем.",
+      "requirements": "3-5 лет опыта в DevOps/SRE, знание Docker/Kubernetes, опыт работы с CI/CD, облачные платформы (AWS/GCP/Azure), Infrastructure as Code",
+      "criteria": [
+        "Containerization & Orchestration",
+        "CI/CD Pipeline Design",
+        "Cloud Platform Expertise",
+        "Infrastructure as Code",
+        "Monitoring & Observability", 
+        "Security & Compliance",
+        "Automation Scripting",
+        "Incident Response"
+      ],
+      "questions": [
+        {
+          "criterion": "Containerization & Orchestration",
+          "questions": [
+            "Объясните архитектуру Kubernetes и основные компоненты",
+            "В чем разница между Docker и containerd?",
+            "Как бы вы организовали rolling deployment в Kubernetes?"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mobile-ios-middle",
+      "title": "iOS Developer (Middle)",
+      "category": "Mobile",
+      "level": "Middle",
+      "description": "Разработка нативных iOS приложений, работа с современными технологиями Apple ecosystem.",
+      "requirements": "3-5 лет опыта разработки iOS приложений, знание Swift, SwiftUI/UIKit, опыт работы с Core Data, понимание архитектурных паттернов (MVC, MVVM, VIPER)",
+      "criteria": [
+        "Swift Programming",
+        "iOS SDK & Frameworks",
+        "UI/UX Implementation", 
+        "Data Persistence",
+        "Architecture Patterns",
+        "Performance Optimization",
+        "App Store Guidelines",
+        "Testing & Debugging"
+      ],
+      "questions": [
+        {
+          "criterion": "Swift Programming",
+          "questions": [
+            "Объясните разницу между class и struct в Swift",
+            "Что такое optionals и как с ними работать?",
+            "Как работает ARC (Automatic Reference Counting)?"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "data-scientist-middle",
+      "title": "Data Scientist (Middle)",
+      "category": "Data & Analytics",
+      "level": "Middle",
+      "description": "Анализ данных, построение ML моделей, извлечение инсайтов для бизнес-решений.",
+      "requirements": "3-5 лет опыта в data science, знание Python/R, опыт работы с ML библиотеками (pandas, scikit-learn, TensorFlow), статистика и математика",
+      "criteria": [
+        "Statistical Analysis",
+        "Machine Learning",
+        "Data Processing & ETL",
+        "Programming Skills",
+        "Business Intelligence",
+        "Data Visualization",
+        "Research Methodology", 
+        "Communication & Presentation"
+      ],
+      "questions": [
+        {
+          "criterion": "Machine Learning",
+          "questions": [
+            "Объясните разницу между supervised и unsupervised learning",
+            "Что такое overfitting и как с ним бороться?",
+            "Как бы вы выбрали метрики для оценки модели классификации?"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "product-manager-middle",
+      "title": "Product Manager (Middle)",
+      "category": "Product",
+      "level": "Middle", 
+      "description": "Управление продуктом от идеи до запуска, работа с командами разработки, анализ пользователей и рынка.",
+      "requirements": "3-5 лет опыта в product management, опыт работы с agile/scrum, аналитические навыки, понимание UX/UI принципов, опыт A/B тестирования",
+      "criteria": [
+        "Product Strategy",
+        "User Research & Analytics",
+        "Roadmap Planning",
+        "Stakeholder Management",
+        "Agile/Scrum Processes",
+        "Data-Driven Decision Making",
+        "Market Analysis",
+        "Communication & Leadership"
+      ],
+      "questions": [
+        {
+          "criterion": "Product Strategy",
+          "questions": [
+            "Как бы вы определили приоритеты фич в product backlog?",
+            "Расскажите о методах оценки product-market fit",
+            "Как бы вы запустили новую фичу и измерили ее успех?"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ui-ux-designer-middle",
+      "title": "UI/UX Designer (Middle)",
+      "category": "Design",
+      "level": "Middle",
+      "description": "Проектирование пользовательского опыта и интерфейсов, исследование пользователей, создание дизайн-систем.",
+      "requirements": "3-5 лет опыта в UI/UX дизайне, знание Figma/Sketch, опыт проведения пользовательских исследований, понимание принципов accessibility",
+      "criteria": [
+        "User Research & Testing",
+        "Information Architecture",
+        "Visual Design Skills",
+        "Prototyping & Wireframing",
+        "Design Systems",
+        "Accessibility & Usability",
+        "Cross-functional Collaboration",
+        "Design Thinking Process"
+      ],
+      "questions": [
+        {
+          "criterion": "User Research & Testing",
+          "questions": [
+            "Как бы вы провели user research для нового продукта?",
+            "Объясните разницу между usability testing и A/B testing",
+            "Какие методы валидации дизайна вы используете?"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "qa-engineer-middle",
+      "title": "QA Engineer (Middle)", 
+      "category": "Quality Assurance",
+      "level": "Middle",
+      "description": "Обеспечение качества программного обеспечения, автоматизация тестирования, разработка test strategy.",
+      "requirements": "3-5 лет опыта в QA, знание автоматизированного тестирования (Selenium, Cypress), понимание различных видов тестирования, опыт работы с баг-трекингом",
+      "criteria": [
+        "Test Planning & Strategy",
+        "Manual Testing Expertise",
+        "Test Automation",
+        "Bug Tracking & Reporting",
+        "Performance Testing",
+        "API Testing",
+        "Cross-platform Testing",
+        "Quality Metrics & Analysis"
+      ],
+      "questions": [
+        {
+          "criterion": "Test Automation",
+          "questions": [
+            "Как бы вы выбрали тесты для автоматизации?",
+            "Объясните pyramid of testing",
+            "Какие challenges возникают при UI автоматизации?"
+          ]
+        }
+      ]
+    }
+  ]
+} 

@@ -1,0 +1,80 @@
+# Choizee .gitignore
+
+# === Cursor IDE ===
+.cursor/
+cursor.rules
+.cursorrules
+
+# === Документация разработки ===
+reqs/
+*.md.bak
+
+# === Build artifacts ===
+choizee
+main
+dist/
+*.exe
+*.dll
+*.so
+*.dylib
+
+# === Frontend build ===
+web/dist/
+web/node_modules/
+web/.vite/
+web/build/
+
+# === Development ===
+*.log
+backend.log
+frontend.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# === IDE & Editor ===
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# === OS ===
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# === Dependencies ===
+go.sum
+
+# === Temporary ===
+*.tmp
+*.temp
+.cache/
+tmp/
+temp/
+
+# === Environment ===
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# === Coverage ===
+coverage/
+*.coverprofile
+
+# === Backup ===
+*.backup
+*.bak
+
+# === ВАЖНО: НЕ исключаем ===
+# data/ - оставляем демо-данные для новых пользователей
+# *.db - оставляем базу данных с примерами
+# testing_report.md - публичный отчет тестирования
+# IMPLEMENTATION_REPORT.md - публичный отчет реализации
