@@ -2008,6 +2008,7 @@ select {
 .fabric-image-container {
   position: relative;
   display: inline-block;
+  overflow: visible;
 }
 
 .fabric-overlay {
@@ -2024,7 +2025,7 @@ select {
   pointer-events: none;
 }
 
-.fabric-image:hover + .fabric-overlay {
+.fabric-image-container:hover .fabric-overlay {
   opacity: 1;
   visibility: visible;
 }
@@ -2039,19 +2040,22 @@ select {
   cursor: help;
   position: relative;
   z-index: 1;
+  transform-origin: top right;
 }
 
 .fabric-image:hover {
-  width: 400px;
-  height: 400px;
+  width: min(400px, 80vw);
+  height: min(400px, 80vh);
   border-color: var(--primary-color);
   box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3);
   border-radius: 16px;
   z-index: 1000;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform-origin: top right;
+  max-width: 80vw;
+  max-height: 80vh;
 }
 
 .library-filters {
@@ -2269,8 +2273,14 @@ select {
   }
   
   .fabric-image:hover {
-    width: 300px;
-    height: 300px;
+    width: min(300px, 90vw);
+    height: min(300px, 90vh);
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform-origin: top right;
+    max-width: 90vw;
+    max-height: 90vh;
   }
   
   .filter-row {
