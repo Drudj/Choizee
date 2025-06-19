@@ -1996,8 +1996,8 @@ select {
 
 .library-humor-section {
   display: flex;
-  align-items: center;
-  opacity: 0.8;
+  align-items: flex-start;
+  opacity: 0.9;
   transition: opacity 0.3s ease;
 }
 
@@ -2011,51 +2011,37 @@ select {
   overflow: visible;
 }
 
-.fabric-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 999;
-  pointer-events: none;
-}
-
-.fabric-image-container:hover .fabric-overlay {
-  opacity: 1;
-  visibility: visible;
-}
-
 .fabric-image {
   width: 72px;
   height: 72px;
   border-radius: 8px;
   object-fit: cover;
   border: 2px solid var(--border-color);
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: help;
-  position: relative;
-  z-index: 1;
-  transform-origin: top right;
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  display: block;
 }
 
 .fabric-image:hover {
+  border-color: var(--primary-color);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+  transform: scale(1.05);
+}
+
+.fabric-image:active {
+  transform: scale(0.95);
+  transition: all 0.1s ease;
+}
+
+.fabric-image.expanded {
   width: min(400px, 80vw);
   height: min(400px, 80vh);
   border-color: var(--primary-color);
   box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3);
   border-radius: 16px;
-  z-index: 1000;
-  position: absolute;
-  top: 0;
-  right: 0;
-  transform-origin: top right;
   max-width: 80vw;
   max-height: 80vh;
+  margin-bottom: 1rem;
 }
 
 .library-filters {
@@ -2272,13 +2258,9 @@ select {
     height: 60px;
   }
   
-  .fabric-image:hover {
+  .fabric-image.expanded {
     width: min(300px, 90vw);
     height: min(300px, 90vh);
-    position: absolute;
-    top: 0;
-    right: 0;
-    transform-origin: top right;
     max-width: 90vw;
     max-height: 90vh;
   }

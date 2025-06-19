@@ -30,6 +30,7 @@ const QuestionLibrary: React.FC<QuestionLibraryProps> = ({ onSelectQuestion, onC
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedLevel, setSelectedLevel] = useState<string>('all');
+  const [isImageExpanded, setIsImageExpanded] = useState(false);
 
   useEffect(() => {
     loadLibraryData();
@@ -55,6 +56,10 @@ const QuestionLibrary: React.FC<QuestionLibraryProps> = ({ onSelectQuestion, onC
   const handleQuestionSelect = (question: string) => {
     onSelectQuestion(question);
     onClose();
+  };
+
+  const handleImageClick = () => {
+    setIsImageExpanded(!isImageExpanded);
   };
 
   // Фильтрация данных
@@ -162,10 +167,10 @@ const QuestionLibrary: React.FC<QuestionLibraryProps> = ({ onSelectQuestion, onC
                 <img 
                   src="/fabric_details.jpg" 
                   alt="Fabric Details" 
-                  className="fabric-image"
-                  title="Потому что качественные вопросы - это как качественная ткань 😄"
+                  className={`fabric-image ${isImageExpanded ? 'expanded' : ''}`}
+                  title="Потому что качественные вопросы - это как качественная ткань 😄 (Кликните для увеличения)"
+                  onClick={handleImageClick}
                 />
-                <div className="fabric-overlay"></div>
               </div>
             </div>
           </div>
