@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Job, Candidate, Question, Evaluation, Answer } from '../types';
+import { Job, Candidate, Question, Evaluation, Answer, Criterion } from '../types';
 import { api } from '../services/api';
 
 interface EvaluationCriteria {
   criterion: string;
+  criterion_id: number;
   score: number;
   notes: string;
   questions: Question[];
@@ -48,10 +49,11 @@ const CandidateInterview: React.FC = () => {
     try {
       setLoading(true);
       
-      // Загружаем вакансию, кандидата, вопросы, существующие оценки и ответы
-      const [jobData, candidateData, questionsData, existingEvaluations, existingAnswers] = await Promise.all([
+      // Загружаем вакансию, кандидата, критерии, вопросы, существующие оценки и ответы
+      const [jobData, candidateData, criteriaData, questionsData, existingEvaluations, existingAnswers] = await Promise.all([
         api.getJob(Number(jobId)),
         api.getCandidate(Number(candidateId)),
+        api.getJobCriteria(Number(jobId)),
         api.getJobQuestions(Number(jobId)),
         api.getCandidateEvaluations(Number(candidateId)).catch(() => []), // не критичная ошибка если оценок еще нет
         api.getCandidateAnswers(Number(candidateId)).catch(() => []) // не критичная ошибка если ответов еще нет
@@ -62,18 +64,18 @@ const CandidateInterview: React.FC = () => {
       setQuestions(questionsData || []);
       setAnswers(existingAnswers || []);
 
-      // Парсим критерии из вакансии
-      const jobCriteria = JSON.parse(jobData.criteria || '[]');
-      setCriteria(jobCriteria);
+      // Используем критерии из API
+      const jobCriteria = criteriaData || [];
+      setCriteria(jobCriteria.map(c => c.name));
 
       // Группируем вопросы по критериям и инициализируем оценки
-      const initialEvaluation = jobCriteria.map((criterion: string) => {
+      const initialEvaluation = jobCriteria.map((criterion: Criterion) => {
         // Ищем существующую оценку для этого критерия (убеждаемся что existingEvaluations это массив)
         const evaluationsArray = Array.isArray(existingEvaluations) ? existingEvaluations : [];
-        const existingEval = evaluationsArray.find(e => e.criterion === criterion);
+        const existingEval = evaluationsArray.find(e => e.criterion_name === criterion.name);
         
         // Фильтруем вопросы для текущего критерия
-        const criterionQuestions = questionsData?.filter((q: Question) => q.criterion === criterion) || [];
+        const criterionQuestions = questionsData?.filter((q: Question) => q.criterion_name === criterion.name) || [];
         
         // Инициализируем состояние вопросов с существующими ответами
         const questionStates: { [questionId: number]: { asked: boolean; answer: string } } = {};
@@ -86,7 +88,8 @@ const CandidateInterview: React.FC = () => {
         });
         
         return {
-          criterion,
+          criterion: criterion.name,
+          criterion_id: criterion.id,
           score: existingEval?.score || 0,
           notes: existingEval?.comments || '',
           questions: criterionQuestions,
@@ -145,7 +148,7 @@ const CandidateInterview: React.FC = () => {
       // Преобразуем оценки в формат API
       const evaluationsForAPI: Evaluation[] = evaluation.map(item => ({
         candidate_id: candidate.id!,
-        criterion: item.criterion,
+        criterion_id: item.criterion_id,
         score: item.score,
         comments: item.notes
       }));

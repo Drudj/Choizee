@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Job } from '../types';
+import { Job, Criterion } from '../types';
 import { api } from '../services/api';
 
 const JobList: React.FC = () => {
   const navigate = useNavigate();
   const [jobs, setJobs] = useState<Job[]>([]);
+  const [jobsCriteria, setJobsCriteria] = useState<Record<number, Criterion[]>>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
@@ -69,6 +70,29 @@ const JobList: React.FC = () => {
       setLoading(true);
       const data = await api.getJobs();
       setJobs(data || []);
+      
+      // Загружаем критерии для каждой вакансии
+      const criteriaPromises = (data || []).map(async (job) => {
+        if (job.id) {
+          try {
+            const criteria = await api.getJobCriteria(job.id);
+            return { jobId: job.id, criteria };
+          } catch (err) {
+            console.warn(`Failed to load criteria for job ${job.id}:`, err);
+            return { jobId: job.id, criteria: [] };
+          }
+        }
+        return { jobId: 0, criteria: [] };
+      });
+      
+      const criteriaResults = await Promise.all(criteriaPromises);
+      const criteriaMap: Record<number, Criterion[]> = {};
+      criteriaResults.forEach(({ jobId, criteria }) => {
+        if (jobId) {
+          criteriaMap[jobId] = criteria;
+        }
+      });
+      setJobsCriteria(criteriaMap);
     } catch (err) {
       setError('Ошибка загрузки вакансий');
       console.error(err);
@@ -177,14 +201,26 @@ const JobList: React.FC = () => {
                     <div className="mb-4">
                       <strong>Критерии оценки:</strong>
                       <div className="flex flex-gap mt-2" style={{ flexWrap: 'wrap' }}>
-                        {job.criteria && JSON.parse(job.criteria).map((criterion: string, index: number) => (
-                          <span
-                            key={index}
-                            className="criterion-tag"
-                          >
-                            {criterion}
-                          </span>
-                        ))}
+                        {job.id && jobsCriteria[job.id] && jobsCriteria[job.id].length > 0 ? (
+                          jobsCriteria[job.id].map((criterion) => (
+                            <span
+                              key={criterion.id}
+                              className="criterion-tag"
+                            >
+                              {criterion.name}
+                            </span>
+                          ))
+                        ) : (
+                          // Fallback к старой структуре для совместимости
+                          job.criteria && JSON.parse(job.criteria).length > 0 && JSON.parse(job.criteria).map((criterion: string, index: number) => (
+                            <span
+                              key={index}
+                              className="criterion-tag"
+                            >
+                              {criterion}
+                            </span>
+                          ))
+                        )}
                       </div>
                     </div>
                     <div className="flex flex-gap mt-4" style={{ flexWrap: 'wrap' }}>

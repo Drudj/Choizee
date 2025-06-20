@@ -1,4 +1,4 @@
-import { Job, Candidate, CandidateWithJob, Question, Evaluation, Answer } from '../types';
+import { Job, Candidate, CandidateWithJob, Question, Evaluation, Answer, Criterion, CriterionUpdate } from '../types';
 
 const API_BASE = '/api';
 
@@ -273,6 +273,73 @@ export const api = {
         body: JSON.stringify(answers),
       });
     }, 2); // Меньше ретраев для POST операций
+  },
+
+  // Criteria
+  async getJobCriteria(jobId: number): Promise<Criterion[]> {
+    return retryWithBackoff(async () => {
+      const response = await safeFetch(`${API_BASE}/jobs/${jobId}/criteria`);
+      return response.json();
+    });
+  },
+
+  async createCriterion(criterion: Omit<Criterion, 'id' | 'created_at' | 'updated_at'>): Promise<Criterion> {
+    return retryWithBackoff(async () => {
+      const response = await safeFetch(`${API_BASE}/criteria`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(criterion),
+      });
+      return response.json();
+    }, 2);
+  },
+
+  async updateCriterion(id: number, update: CriterionUpdate): Promise<Criterion> {
+    return retryWithBackoff(async () => {
+      const response = await safeFetch(`${API_BASE}/criteria/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(update),
+      });
+      return response.json();
+    }, 2);
+  },
+
+  async deleteCriterion(id: number): Promise<void> {
+    return retryWithBackoff(async () => {
+      await safeFetch(`${API_BASE}/criteria/${id}`, {
+        method: 'DELETE',
+      });
+    }, 2);
+  },
+
+  async updateJobCriteria(jobId: number, criteriaNames: string[]): Promise<Criterion[]> {
+    console.log('🔧 updateJobCriteria called:', { jobId, criteriaNames });
+    
+    return retryWithBackoff(async () => {
+      console.log('📡 Sending request to:', `${API_BASE}/jobs/${jobId}/criteria`);
+      console.log('📦 Request payload:', JSON.stringify(criteriaNames));
+      
+      const response = await safeFetch(`${API_BASE}/jobs/${jobId}/criteria`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(criteriaNames),
+      });
+      
+      const result = await response.json();
+      console.log('✅ Response received:', result);
+      return result;
+    }, 2);
+  },
+
+  async reorderCriteria(jobId: number, criteriaIDs: number[]): Promise<void> {
+    return retryWithBackoff(async () => {
+      await safeFetch(`${API_BASE}/jobs/${jobId}/criteria/reorder`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(criteriaIDs),
+      });
+    }, 2);
   },
 };
 

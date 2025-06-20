@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { Job, CandidateWithJob } from '../types';
+import { Job, CandidateWithJob, Criterion } from '../types';
 import { api } from '../services/api';
 import RadarChart from './RadarChart';
 
@@ -36,16 +36,17 @@ const CandidateComparison: React.FC = () => {
     try {
       setLoading(true);
       
-      const [jobData, candidatesData] = await Promise.all([
+      const [jobData, candidatesData, criteriaData] = await Promise.all([
         api.getJob(Number(id)),
-        api.getJobCandidates(Number(id))
+        api.getJobCandidates(Number(id)),
+        api.getJobCriteria(Number(id))
       ]);
       
       setJob(jobData);
       setCandidates(candidatesData || []);
       
-      // Парсим критерии из вакансии
-      const jobCriteria = JSON.parse(jobData.criteria || '[]');
+      // Используем критерии из нового API
+      const jobCriteria = (criteriaData || []).map((c: Criterion) => c.name);
       setCriteria(jobCriteria);
       
       // Загружаем реальные оценки из API
@@ -81,11 +82,11 @@ const CandidateComparison: React.FC = () => {
       const summary = summaries.find(s => s.candidate_id === candidate.id);
       
       if (summary && summary.evaluations.length > 0) {
-                 // Преобразуем оценки в объект с критериями
-         const criteriaScores: { [key: string]: number } = {};
-         summary.evaluations.forEach((evaluation: any) => {
-           criteriaScores[evaluation.criterion] = evaluation.score;
-         });
+        // Преобразуем оценки в объект с критериями
+        const criteriaScores: { [key: string]: number } = {};
+        summary.evaluations.forEach((evaluation: any) => {
+          criteriaScores[evaluation.criterion_name] = evaluation.score;
+        });
         
         // Вычисляем общую оценку
         const scores = Object.values(criteriaScores);

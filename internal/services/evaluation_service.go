@@ -21,9 +21,9 @@ func (s *EvaluationService) CreateEvaluation(evaluation *models.Evaluation) (*mo
 	evaluation.UpdatedAt = time.Now()
 
 	query := `
-		INSERT INTO evaluations (candidate_id, criterion, score, comments, created_at, updated_at)
+		INSERT INTO evaluations (candidate_id, criterion_id, score, comments, created_at, updated_at)
 		VALUES (?, ?, ?, ?, ?, ?)
-		ON CONFLICT(candidate_id, criterion) DO UPDATE SET
+		ON CONFLICT(candidate_id, criterion_id) DO UPDATE SET
 			score = excluded.score,
 			comments = excluded.comments,
 			updated_at = excluded.updated_at
@@ -31,7 +31,7 @@ func (s *EvaluationService) CreateEvaluation(evaluation *models.Evaluation) (*mo
 
 	result, err := s.db.Exec(query,
 		evaluation.CandidateID,
-		evaluation.Criterion,
+		evaluation.CriterionID,
 		evaluation.Score,
 		evaluation.Comments,
 		evaluation.CreatedAt,
@@ -53,10 +53,12 @@ func (s *EvaluationService) CreateEvaluation(evaluation *models.Evaluation) (*mo
 // GetEvaluationsByCandidate получает все оценки кандидата
 func (s *EvaluationService) GetEvaluationsByCandidate(candidateID int64) ([]models.Evaluation, error) {
 	query := `
-		SELECT id, candidate_id, criterion, score, comments, created_at, updated_at
-		FROM evaluations
-		WHERE candidate_id = ?
-		ORDER BY criterion
+		SELECT e.id, e.candidate_id, e.criterion_id, e.score, e.comments, e.created_at, e.updated_at,
+		       c.name as criterion_name
+		FROM evaluations e
+		JOIN criteria c ON e.criterion_id = c.id
+		WHERE e.candidate_id = ?
+		ORDER BY c.display_order
 	`
 
 	rows, err := s.db.Query(query, candidateID)
@@ -71,11 +73,12 @@ func (s *EvaluationService) GetEvaluationsByCandidate(candidateID int64) ([]mode
 		err := rows.Scan(
 			&eval.ID,
 			&eval.CandidateID,
-			&eval.Criterion,
+			&eval.CriterionID,
 			&eval.Score,
 			&eval.Comments,
 			&eval.CreatedAt,
 			&eval.UpdatedAt,
+			&eval.CriterionName,
 		)
 		if err != nil {
 			return nil, fmt.Errorf("failed to scan evaluation: %w", err)
@@ -138,7 +141,7 @@ func (s *EvaluationService) SaveCandidateEvaluations(candidateID int64, evaluati
 
 	// Вставляем новые оценки
 	stmt, err := tx.Prepare(`
-		INSERT INTO evaluations (candidate_id, criterion, score, comments, created_at, updated_at)
+		INSERT INTO evaluations (candidate_id, criterion_id, score, comments, created_at, updated_at)
 		VALUES (?, ?, ?, ?, ?, ?)
 	`)
 	if err != nil {
@@ -150,7 +153,7 @@ func (s *EvaluationService) SaveCandidateEvaluations(candidateID int64, evaluati
 	for _, eval := range evaluations {
 		_, err = stmt.Exec(
 			candidateID,
-			eval.Criterion,
+			eval.CriterionID,
 			eval.Score,
 			eval.Comments,
 			now,
@@ -209,7 +212,7 @@ func (s *EvaluationService) GetEvaluationsSummary(jobID int64) ([]models.Evaluat
 		// Формируем данные для диаграммы
 		summary.ChartData = make(map[string]int)
 		for _, eval := range evaluations {
-			summary.ChartData[eval.Criterion] = eval.Score
+			summary.ChartData[eval.CriterionName] = eval.Score
 		}
 
 		summaries = append(summaries, summary)

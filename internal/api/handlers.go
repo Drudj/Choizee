@@ -17,9 +17,10 @@ type Handlers struct {
 	evaluationService *services.EvaluationService
 	templateService   *services.TemplateService
 	answerService     *services.AnswerService
+	criteriaService   *services.CriteriaService
 }
 
-func NewHandlers(jobService *services.JobService, candidateService *services.CandidateService, questionService *services.QuestionService, evaluationService *services.EvaluationService, templateService *services.TemplateService, answerService *services.AnswerService) *Handlers {
+func NewHandlers(jobService *services.JobService, candidateService *services.CandidateService, questionService *services.QuestionService, evaluationService *services.EvaluationService, templateService *services.TemplateService, answerService *services.AnswerService, criteriaService *services.CriteriaService) *Handlers {
 	return &Handlers{
 		jobService:        jobService,
 		candidateService:  candidateService,
@@ -27,6 +28,7 @@ func NewHandlers(jobService *services.JobService, candidateService *services.Can
 		evaluationService: evaluationService,
 		templateService:   templateService,
 		answerService:     answerService,
+		criteriaService:   criteriaService,
 	}
 }
 
@@ -163,7 +165,7 @@ func (h *Handlers) GetJobQuestions(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	questions, err := h.questionService.GetQuestionsByJobID(jobID)
+	questions, err := h.questionService.GetJobQuestions(jobID)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -471,4 +473,134 @@ func (h *Handlers) GetCandidateAnswers(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(answers)
+}
+
+// Criteria handlers
+
+// GetJobCriteria получает все критерии для вакансии
+func (h *Handlers) GetJobCriteria(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	jobID, err := strconv.ParseInt(vars["id"], 10, 64)
+	if err != nil {
+		http.Error(w, "Invalid job ID", http.StatusBadRequest)
+		return
+	}
+
+	criteria, err := h.criteriaService.GetJobCriteria(jobID)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(criteria)
+}
+
+// CreateCriterion создает новый критерий
+func (h *Handlers) CreateCriterion(w http.ResponseWriter, r *http.Request) {
+	var criterion models.Criterion
+	if err := json.NewDecoder(r.Body).Decode(&criterion); err != nil {
+		http.Error(w, "Invalid JSON", http.StatusBadRequest)
+		return
+	}
+
+	createdCriterion, err := h.criteriaService.CreateCriterion(criterion)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(createdCriterion)
+}
+
+// UpdateCriterion обновляет критерий
+func (h *Handlers) UpdateCriterion(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id, err := strconv.ParseInt(vars["id"], 10, 64)
+	if err != nil {
+		http.Error(w, "Invalid criterion ID", http.StatusBadRequest)
+		return
+	}
+
+	var update models.CriterionUpdate
+	if err := json.NewDecoder(r.Body).Decode(&update); err != nil {
+		http.Error(w, "Invalid JSON", http.StatusBadRequest)
+		return
+	}
+
+	updatedCriterion, err := h.criteriaService.UpdateCriterion(id, update)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(updatedCriterion)
+}
+
+// DeleteCriterion удаляет критерий
+func (h *Handlers) DeleteCriterion(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id, err := strconv.ParseInt(vars["id"], 10, 64)
+	if err != nil {
+		http.Error(w, "Invalid criterion ID", http.StatusBadRequest)
+		return
+	}
+
+	if err := h.criteriaService.DeleteCriterion(id); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusNoContent)
+}
+
+// UpdateJobCriteria обновляет все критерии вакансии
+func (h *Handlers) UpdateJobCriteria(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	jobID, err := strconv.ParseInt(vars["id"], 10, 64)
+	if err != nil {
+		http.Error(w, "Invalid job ID", http.StatusBadRequest)
+		return
+	}
+
+	var criteriaNames []string
+	if err := json.NewDecoder(r.Body).Decode(&criteriaNames); err != nil {
+		http.Error(w, "Invalid JSON", http.StatusBadRequest)
+		return
+	}
+
+	updatedCriteria, err := h.criteriaService.UpdateJobCriteria(jobID, criteriaNames)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(updatedCriteria)
+}
+
+// ReorderCriteria изменяет порядок критериев
+func (h *Handlers) ReorderCriteria(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	jobID, err := strconv.ParseInt(vars["id"], 10, 64)
+	if err != nil {
+		http.Error(w, "Invalid job ID", http.StatusBadRequest)
+		return
+	}
+
+	var criteriaIDs []int64
+	if err := json.NewDecoder(r.Body).Decode(&criteriaIDs); err != nil {
+		http.Error(w, "Invalid JSON", http.StatusBadRequest)
+		return
+	}
+
+	if err := h.criteriaService.ReorderCriteria(jobID, criteriaIDs); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]string{"status": "success"})
 }

@@ -36,9 +36,10 @@ func main() {
 	evaluationService := services.NewEvaluationService(db)
 	templateService := services.NewTemplateService()
 	answerService := services.NewAnswerService(db)
+	criteriaService := services.NewCriteriaService(db)
 
 	// Инициализация handlers
-	handlers := api.NewHandlers(jobService, candidateService, questionService, evaluationService, templateService, answerService)
+	handlers := api.NewHandlers(jobService, candidateService, questionService, evaluationService, templateService, answerService, criteriaService)
 
 	// Настройка роутинга
 	router := setupRoutes(handlers)
@@ -62,6 +63,9 @@ func setupRoutes(handlers *api.Handlers) *mux.Router {
 	apiRouter.HandleFunc("/jobs/{id}", handlers.DeleteJob).Methods("DELETE")
 	apiRouter.HandleFunc("/jobs/{id}/candidates", handlers.GetJobCandidates).Methods("GET")
 	apiRouter.HandleFunc("/jobs/{id}/questions", handlers.GetJobQuestions).Methods("GET")
+	apiRouter.HandleFunc("/jobs/{id}/criteria", handlers.GetJobCriteria).Methods("GET")
+	apiRouter.HandleFunc("/jobs/{id}/criteria", handlers.UpdateJobCriteria).Methods("PUT")
+	apiRouter.HandleFunc("/jobs/{id}/criteria/reorder", handlers.ReorderCriteria).Methods("POST")
 
 	// Questions endpoints
 	apiRouter.HandleFunc("/questions", handlers.CreateQuestion).Methods("POST")
@@ -89,6 +93,11 @@ func setupRoutes(handlers *api.Handlers) *mux.Router {
 	apiRouter.HandleFunc("/templates/categories", handlers.GetTemplateCategories).Methods("GET")
 	apiRouter.HandleFunc("/templates/category/{category}", handlers.GetTemplatesByCategory).Methods("GET")
 	apiRouter.HandleFunc("/templates/{id}", handlers.GetTemplateByID).Methods("GET")
+
+	// Criteria endpoints
+	apiRouter.HandleFunc("/criteria", handlers.CreateCriterion).Methods("POST")
+	apiRouter.HandleFunc("/criteria/{id}", handlers.UpdateCriterion).Methods("PUT")
+	apiRouter.HandleFunc("/criteria/{id}", handlers.DeleteCriterion).Methods("DELETE")
 
 	// Serve static files with SPA fallback
 	staticDir := "./web/dist/"
